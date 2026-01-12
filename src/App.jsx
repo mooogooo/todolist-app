@@ -20,7 +20,7 @@ function App() {
     { id: 'light', name: '☀', title: 'Soft Ink' },
     { id: 'dim', name: '☁', title: 'Dimmed' },
     { id: 'dark', name: '☾', title: 'Dark Slate' },
-    { id: 'midnight', name: '★', title: 'Midnight' },
+    // { id: 'midnight', name: '★', title: 'Midnight' },
   ];
 
   // Derive stats
