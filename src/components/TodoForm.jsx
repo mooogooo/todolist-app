@@ -2,19 +2,24 @@ import React from 'react';
 
 const TodoForm = ({ input, setInput, onSubmit }) => {
   return (
-    <form onSubmit={onSubmit} className="flex gap-3 mb-8">
-      <input
-        type="text"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        placeholder="添加新的待办事项..."
-        className="flex-1 px-5 py-3 bg-primary-50 border border-primary-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200"
-      />
+    <form onSubmit={onSubmit} className="flex gap-2">
+      <div className="relative flex-1">
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="New entry..."
+          className="w-full px-4 py-3 bg-app-surface border border-app-border font-body text-app-main placeholder-gray-400 focus:outline-none focus:ring-0 focus:border-app-border transition-all"
+        />
+      </div>
       <button
         type="submit"
-        className="px-7 py-3 bg-primary-500 text-white font-semibold rounded-xl shadow-md hover:bg-primary-600 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-all duration-200 transform hover:scale-105 active:scale-95"
+        className="btn bg-app-surface hover:bg-app-main hover:text-white px-4 shadow-ink active:shadow-none active:translate-x-[4px] active:translate-y-[4px] disabled:opacity-50 disabled:cursor-not-allowed disabled:active:translate-none disabled:active:shadow-ink"
+        disabled={!input.trim()}
       >
-        添加1
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+        </svg>
       </button>
     </form>
   );

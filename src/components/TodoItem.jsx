@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { useDrag } from 'react-dnd';
 
-const TodoItem = ({ todo, onDelete, onToggleComplete, onEdit }) => {
+const TodoItem = ({ todo, index, onDelete, onEdit }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(todo.title);
 
@@ -12,50 +13,59 @@ const TodoItem = ({ todo, onDelete, onToggleComplete, onEdit }) => {
     }
   };
 
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: 'TODO_ITEM',
+    item: { id: todo.id, index },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  }));
+
   return (
     <div
-      className={`flex items-center justify-between p-4 rounded-xl border shadow-sm hover:shadow-md transition-all duration-300 animate-fade-in slide-in-from-left ${todo.completed ? 'bg-primary-100 border-primary-200' : 'bg-primary-50 border-primary-100'}`}
+      ref={drag}
+      className={`group flex items-start p-3 bg-app-surface border border-app-border transition-all cursor-move ${isDragging ? 'opacity-20 border-dashed' : ''}`}
     >
-      <div className="flex items-center gap-3 flex-1">
-        <input
-          type="checkbox"
-          checked={todo.completed || false}
-          onChange={() => onToggleComplete(todo.id)}
-          className="w-4 h-4 text-primary-600 focus:ring-primary-500 border-primary-300 rounded transition-colors"
-        />
+      <div className="flex-1 min-w-0 mr-2">
         {isEditing ? (
-          <form onSubmit={handleEditSubmit} className="flex-1">
+          <form onSubmit={handleEditSubmit} onClick={(e) => e.stopPropagation()}>
             <input
               type="text"
               value={editTitle}
               onChange={(e) => setEditTitle(e.target.value)}
-              className="flex-1 px-3 py-1 border border-primary-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary-500 transition-colors"
+              className="w-full px-2 py-1 bg-app-surface border border-app-border font-body text-sm focus:outline-none focus:ring-1 focus:ring-black"
               autoFocus
+              onBlur={() => setIsEditing(false)}
             />
           </form>
         ) : (
-          <span className={`font-medium transition-all duration-200 ${todo.completed ? 'text-gray-500 line-through' : 'text-gray-900'}`}>
-            {todo.title}
-          </span>
-        )}
-      </div>
-      <div className="flex items-center gap-2">
-        {!isEditing && (
-          <button
-            onClick={() => setIsEditing(true)}
-            className="text-primary-500 hover:text-primary-600 transition-colors p-2 rounded-full hover:bg-primary-100 transform hover:scale-110 active:scale-90"
+          <p 
+            className={`font-body text-sm leading-snug break-words ${todo.completed || todo.status === 'completed' ? 'line-through text-gray-400 decoration-gray-400' : 'text-app-main'}`}
+            onDoubleClick={() => setIsEditing(true)}
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-            </svg>
-          </button>
+            {todo.title}
+          </p>
         )}
+        <p className="font-heading text-[10px] text-gray-500 mt-2 uppercase tracking-wider">
+          {new Date(todo.created_at).toLocaleDateString()}
+        </p>
+      </div>
+
+      <div className="flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+        <button
+          onClick={() => setIsEditing(true)}
+          className="p-1 hover:bg-app-main hover:text-white transition-colors border border-transparent hover:border-app-border"
+        >
+          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+          </svg>
+        </button>
         <button
           onClick={() => onDelete(todo.id)}
-          className="text-primary-500 hover:text-primary-600 transition-colors p-2 rounded-full hover:bg-primary-100 transform hover:scale-110 active:scale-90"
+          className="p-1 hover:bg-app-main hover:text-white transition-colors border border-transparent hover:border-app-border"
         >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
           </svg>
         </button>
       </div>

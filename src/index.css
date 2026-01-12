@@ -1,3 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    /* Default: Soft Ink (Light) */
+    --app-background: #f1f5f9;
+    --app-surface: #ffffff;
+    --app-border: #334155;
+    --app-main: #1e293b;
+    --app-muted: #64748b;
+    --app-shadow: #334155;
+  }
+
+  [data-theme='dim'] {
+    /* Dimmed (Mid-Tone) */
+    --app-background: #cbd5e1;
+    --app-surface: #e2e8f0;
+    --app-border: #1e293b;
+    --app-main: #0f172a;
+    --app-muted: #475569;
+    --app-shadow: #1e293b;
+  }
+
+  [data-theme='dark'] {
+    /* Dark Slate (Dark) */
+    --app-background: #1e293b;
+    --app-surface: #334155;
+    --app-border: #0f172a;
+    --app-main: #f1f5f9;
+    --app-muted: #94a3b8;
+    --app-shadow: #020617;
+  }
+
+  [data-theme='midnight'] {
+    /* Midnight (Deepest) */
+    --app-background: #020617;
+    --app-surface: #0f172a;
+    --app-border: #1e293b;
+    --app-main: #e2e8f0;
+    --app-muted: #64748b;
+    --app-shadow: #000000;
+  }
+
+  body {
+    @apply font-body bg-app-background text-app-main antialiased transition-colors duration-300;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-bold uppercase tracking-tight;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center px-4 py-2 font-heading font-bold border border-app-border transition-all active:translate-x-[1px] active:translate-y-[1px] active:shadow-none cursor-pointer;
+  }
+  
+  .btn-primary {
+    @apply bg-app-main text-app-background shadow-ink hover:bg-app-border hover:text-app-main;
+  }
+
+  .card {
+    @apply bg-app-surface border border-app-border p-4 transition-all duration-200;
+  }
+}
