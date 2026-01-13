@@ -2,7 +2,7 @@ import React from 'react';
 import { useDrop } from 'react-dnd';
 import TodoItem from './TodoItem';
 
-const TodoZone = ({ title, status, todos, onDrop, onDelete, onEdit, onToggle, hideHeader = false }) => {
+const TodoZone = ({ title, status, todos, onDrop, onDelete, onEdit, hideHeader = false }) => {
   const [{ isOver }, drop] = useDrop(() => ({
     accept: 'TODO_ITEM',
     drop: (item) => onDrop(item.id, status),
@@ -18,7 +18,7 @@ const TodoZone = ({ title, status, todos, onDrop, onDelete, onEdit, onToggle, hi
     >
       {!hideHeader && (
         <div className="flex items-center justify-between mb-4 px-2">
-          <h3 className="font-bold text-sm tracking-wide uppercase flex items-center gap-2 text-app-text">
+          <h3 className="font-black text-sm tracking-wide uppercase flex items-center gap-2 text-app-text">
             {title}
           </h3>
           <span className="font-mono text-sm text-app-text-muted">
@@ -30,7 +30,7 @@ const TodoZone = ({ title, status, todos, onDrop, onDelete, onEdit, onToggle, hi
       <div className="flex-1 overflow-y-auto space-y-3">
         {todos.length === 0 ? (
            <div className="h-full flex flex-col items-center justify-center text-app-text-muted/50">
-             <span className="font-bold text-sm tracking-widest uppercase">Empty</span>
+             <span className="font-bold text-xs  tracking-widest uppercase  opacity-25">Empty Slot</span>
            </div>
         ) : (
           todos.map((todo, index) => (
@@ -40,7 +40,6 @@ const TodoZone = ({ title, status, todos, onDrop, onDelete, onEdit, onToggle, hi
               index={index}
               onDelete={onDelete}
               onEdit={onEdit}
-              onToggle={onToggle}
             />
           ))
         )}

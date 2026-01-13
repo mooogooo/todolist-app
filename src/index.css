@@ -7,7 +7,7 @@
 @layer base {
   :root {
     /* Glassmorphic Green - Light Mode */
-    --app-bg: linear-gradient(180deg, #B2DFDB 0%, #F8FAFC 100%);
+    --app-bg: linear-gradient(180deg, #B2DFDB 0%, #ddfcfa 100%);
     --app-surface-rgba: 255, 255, 255; /* Use with /50, /70 etc for glass */
     --app-border-rgba: 255, 255, 255;
     --app-text: #004D40;

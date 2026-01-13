@@ -1,28 +1,30 @@
-# 待办事项项目 (React + Vite + Supabase)
+# SkillTree (原 Todolist)
 
 ## 项目概览
 
-这是一个使用 React 19、Vite 7 和 Tailwind CSS 构建的现代待办事项 (Todo List) 应用程序，并使用 Supabase 作为后端服务。该项目具有简洁的响应式 UI、任务拖拽排序功能以及实时数据同步。
+这是一个使用 React 19、Vite 7 和 Tailwind CSS 构建的**个人技能管理系统**，名为 **SkillTree**。它受 RPG 游戏启发，旨在帮助用户像管理游戏技能树一样管理自己的技术栈。用户可以将技能（Todo 项）在不同的领域（Zone）之间拖拽，组合出应对不同项目的“技术军火库”。
 
-**当前状态：** 功能性原型，正在进行优化计划。
+**当前状态：** 功能性原型，正在进行 UI/UX 优化。
 
 ## 技术栈
 
 - **前端：** React 19, Vite 7
-- **样式：** Tailwind CSS, PostCSS
+- **样式：** Tailwind CSS, PostCSS (Glassmorphism 风格)
 - **后端：** Supabase (PostgreSQL 数据库, 实时订阅)
 - **拖拽功能：** `react-dnd`, `react-dnd-html5-backend`
 - **代码规范：** ESLint
 
 ## 架构与核心功能
 
-- **组件化：** 应用程序拆分为位于 `src/components/` 的模块化组件 (`TodoForm`, `TodoList`, `TodoItem`)。
+- **核心概念：**
+    - **Skill Pool (技能池):** 相当于 Inbox，存放新获取或未分类的技能/工具。
+    - **Skill Zones (技能领域):** 如 WEB, AI, VIDEO, 3D 等，用于分类已掌握的技能。
+- **组件化：** 模块化组件 (`TodoForm`, `TodoList`, `TodoItem`, `TodoZone`)。
 - **数据管理：**
   - 使用 React 的 `useState` 和 `useEffect` 进行本地状态管理。
   - 从 Supabase 的 `todos` 表中获取数据。
-  - 包含降级机制：如果 Supabase 连接失败，将使用模拟数据。
-  - **实时同步 (Realtime)：** 订阅 Supabase 数据库更改，实现跨客户端的即时 UI 更新。
-- **拖拽排序：** 实现了任务的拖拽排序功能（目前主要更新本地状态）。
+  - **实时同步 (Realtime)：** 订阅 Supabase 数据库更改。
+- **拖拽排序：** 实现了在不同 Skill Zone 之间拖拽技能的功能。
 
 ## 快速上手
 

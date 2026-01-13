@@ -1,13 +1,30 @@
 {
-  "name": "todolist",
-  "private": true,
-  "version": "0.0.0",
+  "name": "skill-tree-lib",
+  "private": false,
+  "version": "1.0.0",
   "type": "module",
+  "files": [
+    "dist-lib"
+  ],
+  "main": "./dist-lib/skill-tree.umd.cjs",
+  "module": "./dist-lib/skill-tree.js",
+  "exports": {
+    ".": {
+      "import": "./dist-lib/skill-tree.js",
+      "require": "./dist-lib/skill-tree.umd.cjs"
+    },
+    "./style.css": "./dist-lib/style.css"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:lib": "vite build --mode library",
     "lint": "eslint .",
     "preview": "vite preview"
+  },
+  "peerDependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
   },
   "dependencies": {
     "@heroicons/react": "^1.0.6",

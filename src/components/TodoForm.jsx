@@ -19,7 +19,7 @@ const TodoForm = ({ input, setInput, onSubmit }) => {
         type="text"
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        placeholder="Add a new task..."
+        placeholder="Add a new idea.."
         className="w-full bg-transparent text-lg placeholder:text-app-text-muted/70 focus:outline-none px-2"
       />
      
