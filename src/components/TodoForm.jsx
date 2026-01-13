@@ -1,26 +1,28 @@
 import React from 'react';
+import { PlusIcon } from '@heroicons/react/24/solid';
 
 const TodoForm = ({ input, setInput, onSubmit }) => {
   return (
-    <form onSubmit={onSubmit} className="flex gap-2">
-      <div className="relative flex-1">
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="New entry..."
-          className="w-full px-4 py-3 bg-app-surface border border-app-border font-body text-app-main placeholder-gray-400 focus:outline-none focus:ring-0 focus:border-app-border transition-all"
-        />
-      </div>
-      <button
+    <form 
+      onSubmit={onSubmit} 
+      className="flex items-center gap-3 p-2 rounded-2xl bg-app-surface/60 backdrop-blur-lg border border-app-border/20 shadow-glass"
+    > 
+    <button 
         type="submit"
-        className="btn bg-app-surface hover:bg-app-main hover:text-white px-4 shadow-ink active:shadow-none active:translate-x-[4px] active:translate-y-[4px] disabled:opacity-50 disabled:cursor-not-allowed disabled:active:translate-none disabled:active:shadow-ink"
+        className="p-3 rounded-xl bg-app-primary text-white shadow-lg shadow-app-primary/30 hover:bg-app-primary/80 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
         disabled={!input.trim()}
       >
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-        </svg>
+        <PlusIcon className="h-4 w-4" />
+        
       </button>
+      <input
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        placeholder="Add a new task..."
+        className="w-full bg-transparent text-lg placeholder:text-app-text-muted/70 focus:outline-none px-2"
+      />
+     
     </form>
   );
 };

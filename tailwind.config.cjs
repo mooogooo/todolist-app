@@ -27,21 +27,24 @@ module.exports = {
           completed: '#a3a3a3', // Light Grey
         },
         app: {
-          background: 'var(--app-background)',
-          surface: 'var(--app-surface)',
-          border: 'var(--app-border)',
-          main: 'var(--app-main)',
-          muted: 'var(--app-muted)',
+          bg: 'var(--app-bg)',
+          text: 'var(--app-text)',
+          'text-muted': 'var(--app-text-muted)',
+          primary: 'var(--app-primary)',
+          'primary-light': 'var(--app-primary-light)',
+          surface: 'rgba(var(--app-surface-rgba), <alpha-value>)',
+          border: 'rgba(var(--app-border-rgba), <alpha-value>)',
         },
       },
       fontFamily: {
-        heading: ['"Space Mono"', 'monospace'],
-        body: ['Merriweather', 'serif'],
+        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
       },
       boxShadow: {
         'ink': '3px 3px 0px 0px var(--app-shadow)',
         'ink-sm': '1px 1px 0px 0px var(--app-shadow)',
         'none': 'none',
+        'neumorphic': '6px 6px 12px rgba(0, 0, 0, 0.05), -6px -6px 12px rgba(255, 255, 255, 0.8)',
+        'glass': '0 4px 30px rgba(0, 0, 0, 0.1)',
       }
     },
   },
