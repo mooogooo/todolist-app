@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDrag } from 'react-dnd';
-import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/solid';
+import { PencilIcon, TrashIcon } from '@heroicons/react/solid';
 
 
 const TodoItem = ({ todo, index, onDelete, onEdit, onToggle }) => {
@@ -32,7 +32,7 @@ const TodoItem = ({ todo, index, onDelete, onEdit, onToggle }) => {
           onClick={() => onEdit(todo.id, prompt('Enter new title:', todo.title))}
           className="p-2 rounded-full hover:bg-app-surface/50 text-app-text-muted transition-colors"
         >
-          <PencilSquareIcon className="w-5 h-5" />
+          <PencilIcon className="w-5 h-5" />
         </button>
         <button
           onClick={() => onDelete(todo.id)}

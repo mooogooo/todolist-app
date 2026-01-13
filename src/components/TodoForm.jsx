@@ -1,5 +1,5 @@
 import React from 'react';
-import { PlusIcon } from '@heroicons/react/24/solid';
+import { PlusIcon } from '@heroicons/react/solid';
 
 const TodoForm = ({ input, setInput, onSubmit }) => {
   return (
