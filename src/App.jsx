@@ -44,12 +44,12 @@ function App({ supabaseClient }) {
       <div className="min-h-screen lg:h-screen w-full bg-app-bg font-sans text-app-text flex flex-col p-4 sm:p-6 gap-4">
         
         {/* Header */}
-        <header className="flex-shrink-0 h-14 rounded-2xl bg-app-surface/50 backdrop-blur-lg border border-app-border/20 shadow-glass flex items-center px-6 justify-between z-10">
+        <header className="flex-shrink-0 h-14 rounded-2xl bg-app-surface/50 backdrop-blur-lg border border-app-border/20 flex items-center px-6 justify-between z-10">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 bg-app-primary flex items-center justify-center rounded-lg shadow-lg shadow-app-primary/20">
               <span className="text-white font-bold text-xl">S</span>
             </div>
-            <span className="text-lg font-bold tracking-tight bg-gradient-to-r from-app-text to-app-text/70 bg-clip-text text-transparent">
+            <span className="text-lg font-bold tracking-tight ">
               SkillTree
             </span>
           </div>
@@ -69,11 +69,11 @@ function App({ supabaseClient }) {
               className="p-1.5 rounded-lg bg-app-surface/50 border border-app-border/20 text-app-text/70 hover:text-app-primary hover:bg-app-primary/10 transition-all duration-300 active:scale-95"
             >
               {theme === 'light' ? (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                 </svg>
               ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
                 </svg>
               )}
@@ -83,11 +83,11 @@ function App({ supabaseClient }) {
 
         <main className="flex-1 flex flex-col lg:flex-row gap-4 overflow-hidden">
           {/* Left Panel: Skill Pool */}
-          <section className="w-full lg:w-1/4 flex flex-col bg-app-surface/50 backdrop-blur-lg border border-app-border/20 shadow-glass rounded-2xl min-w-[280px]">
-            <div className="p-4 border-b border-app-border/10">
-               <h2 className="text-base font-bold text-app-text/80 tracking-wide uppercase text-xs">Skill Pool</h2>
+          <section className="w-full lg:w-1/4 flex flex-col bg-app-surface/50 backdrop-blur-lg border border-app-border/20 rounded-2xl min-w-[280px]">
+            <div className="px-4 pt-4 border-b border-app-border/10">
+               <h2 className=" font-bold text-app-text/80 tracking-wide uppercase text-sm">Inbox</h2>
             </div>
-            <div className="p-4">
+            <div className="px-4 pt-4 pb-2">
               <TodoForm input={input} setInput={setInput} onSubmit={handleAdd} />
             </div>
 
@@ -105,7 +105,7 @@ function App({ supabaseClient }) {
           </section>
 
           {/* Right Panel: Skill Zones Grid */}
-          <section className="w-full lg:w-3/4 grid grid-cols-2 md:grid-cols-4 grid-rows-2 gap-px bg-app-border/10 rounded-2xl overflow-hidden shadow-glass">
+          <section className="w-full lg:w-3/4 grid grid-cols-2 md:grid-cols-4 grid-rows-2 gap-1 bg-app-border/10 rounded-2xl overflow-hidden">
             {SKILL_ZONES.map((zone) => {
                return (
                  <div key={zone.id} className="bg-app-surface/40 backdrop-blur-lg">
