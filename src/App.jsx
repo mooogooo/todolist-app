@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import Login from './components/Login';
 import TodoForm from './components/TodoForm';
 import TodoZone from './components/TodoZone';
 import { useSkills } from './hooks/useSkills';
@@ -8,8 +9,45 @@ import { useTheme } from './hooks/useTheme';
 import { SKILL_ZONES } from './constants';
 
 function App({ supabaseClient }) {
+  const [user, setUser] = useState(null);
+  const [isAuthChecking, setIsAuthChecking] = useState(true);
   const [input, setInput] = useState('');
   const { theme, toggleTheme } = useTheme();
+  
+  // Check for persisted user on mount
+  useState(() => {
+    const checkUser = async () => {
+      const storedUser = localStorage.getItem('skilltree_user');
+      if (storedUser) {
+        setUser(JSON.parse(storedUser));
+      }
+      setIsAuthChecking(false);
+    };
+    checkUser();
+  }, []);
+
+  const handleLogin = async (username, password) => {
+    // Direct database query as requested (Not for production use!)
+    const { data, error } = await supabaseClient
+      .from('users')
+      .select('*')
+      .eq('username', username)
+      .eq('password', password)
+      .single();
+
+    if (error || !data) {
+      throw new Error('Invalid credentials');
+    }
+
+    setUser(data);
+    localStorage.setItem('skilltree_user', JSON.stringify(data));
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    localStorage.removeItem('skilltree_user');
+  };
+
   const { 
     skills, 
     isLoading, 
@@ -18,7 +56,7 @@ function App({ supabaseClient }) {
     deleteSkill, 
     editSkill, 
     moveSkill 
-  } = useSkills(supabaseClient);
+  } = useSkills(supabaseClient, user?.id);
 
   const handleAdd = (e) => {
     e.preventDefault();
@@ -27,6 +65,14 @@ function App({ supabaseClient }) {
   };
 
   const inboxSkills = skills.filter(t => t.status === 'inbox' || !t.status);
+
+  if (isAuthChecking) {
+    return null; // Or a minimal splash screen
+  }
+
+  if (!user) {
+    return <Login onLogin={handleLogin} />;
+  }
 
   if (isLoading) {
     return (
@@ -52,6 +98,9 @@ function App({ supabaseClient }) {
             <span className="text-lg font-bold tracking-tight ">
               SkillTree
             </span>
+            <span className="hidden sm:inline-block px-2 py-0.5 rounded-md bg-app-primary/10 text-app-primary text-xs font-medium border border-app-primary/20">
+              {user.username}
+            </span>
           </div>
           <div className="flex items-center gap-4">
             <div className="hidden md:flex items-center gap-6 text-sm font-medium text-app-text/60">
@@ -64,6 +113,13 @@ function App({ supabaseClient }) {
                 <span>Pool: {stats.inbox}</span>
               </div>
             </div>
+            <div className="h-6 w-px bg-app-border/20 mx-1"></div>
+            <button 
+              onClick={handleLogout}
+              className="text-xs font-medium text-app-text/60 hover:text-red-400 transition-colors"
+            >
+              Logout
+            </button>
             <button 
               onClick={toggleTheme} 
               className="p-1.5 rounded-lg bg-app-surface/50 border border-app-border/20 text-app-text/70 hover:text-app-primary hover:bg-app-primary/10 transition-all duration-300 active:scale-95"
